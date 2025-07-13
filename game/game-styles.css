@@ -45,10 +45,6 @@ html, body {
 .table-container {
     user-select: none; /* Запрещаем выделение текста */
 }
-.table-container {
-    /*transition: transform 0.1s ease-out;*/
-    touch-action: none; /* Отключаем стандартную прокрутку на тач-устройствах */
-}
 td {
     width: 40px;
     height: 40px;
@@ -235,39 +231,19 @@ table {
     transform: scale(0.95);
   }
   
-  @media (max-width: 768px) {
-    #save-button {
-      width: 40px;
-      height: 40px;
-      top: 10px;
-      left: 10px;
-    }
-    
-    #save-button svg {
-      width: 20px;
-      height: 20px;
-    }
-  }
-/* Адаптация для очень маленьких экранов */
-@media (max-width: 400px) {
-    .color-circle-container {
-        width: 50px;
-        height: 50px;
-        bottom: 15px;
-        left: 5px;
-    }
-    
-    .circle-number {
-        font-size: 20px;
-    }
-    
-    .scale-container {
-        height: 35px;
-        padding: 0 10px;
-    }
-    
-    #save-button {
-        width: 35px;
-        height: 35px;
-    }
+.table-container {
+    touch-action: none; /* Отключаем стандартные жесты браузера */
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.zoom-level {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
 }

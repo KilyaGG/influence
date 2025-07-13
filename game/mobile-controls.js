@@ -1,89 +1,79 @@
-let initialDistance = null;
-let initialZoom = null;
-let initialPosX = 0, initialPosY = 0;
-let startTouchX = 0, startTouchY = 0;
-
-// Функция для обновления трансформации
-function updateTransformMobile(X, Y, zoom, focalPoint = null) {
-    if (!focalPoint) {
-        const { innerWidth, innerHeight } = window;
-        focalPoint = { x: innerWidth / 2, y: innerHeight / 2 };
-    }
-
-    const scaleFactor = zoom / currentZoom;
-    const newX = focalPoint.x - (focalPoint.x - posX) * scaleFactor;
-    const newY = focalPoint.y - (focalPoint.y - posY) * scaleFactor;
-
-    // Ограничиваем, чтобы таблица не уходила за границы
-    const maxX = (innerWidth * (zoom - 1)) / 2;
-    const maxY = (innerHeight * (zoom - 1)) / 2;
-    const clampedX = Math.min(maxX, Math.max(-maxX, newX));
-    const clampedY = Math.min(maxY, Math.max(-maxY, newY));
-
-    tableContainer.style.transform = `translate(${clampedX}px, ${clampedY}px) scale(${zoom})`;
-    zoomLevel.textContent = `${Math.round(zoom * 100)}%`;
-    
-    posX = clampedX;
-    posY = clampedY;
-    currentZoom = zoom;
+// Проверка на мобильное устройство
+function isMobile() {
+    return (('ontouchstart' in window) || 
+            (navigator.maxTouchPoints > 0) || 
+            (navigator.msMaxTouchPoints > 0));
 }
 
-// ===== ПЕРЕМЕЩЕНИЕ ОДНИМ ПАЛЬЦЕМ (DRAG) =====
-window.addEventListener('touchstart', (e) => {
-    if (e.touches.length === 1) {
-        isDragging = true;
-        startTouchX = e.touches[0].clientX - posX;
-        startTouchY = e.touches[0].clientY - posY;
-    } else if (e.touches.length === 2) {
-        // Обработка pinch-to-zoom (как раньше)
-        e.preventDefault();
-        const touch1 = e.touches[0];
-        const touch2 = e.touches[1];
-        
-        initialDistance = Math.hypot(
-            touch2.clientX - touch1.clientX,
-            touch2.clientY - touch1.clientY
-        );
-        initialZoom = currentZoom;
-        initialPosX = posX;
-        initialPosY = posY;
-    }
-});
+// Если пользователь на мобильном — включаем touch-управление
+if (isMobile()) {
+    initMobileControls();
+} else {
+    console.log("Desktop");
+}
 
-window.addEventListener('touchmove', (e) => {
-    if (isDragging && e.touches.length === 1) {
-        e.preventDefault();
-        const newX = e.touches[0].clientX - startTouchX;
-        const newY = e.touches[0].clientY - startTouchY;
-        updateTransformMobile(newX, newY, currentZoom);
-    } else if (e.touches.length === 2) {
-        e.preventDefault();
-        const touch1 = e.touches[0];
-        const touch2 = e.touches[1];
-        const currentDistance = Math.hypot(
-            touch2.clientX - touch1.clientX,
-            touch2.clientY - touch1.clientY
-        );
-        
-        if (initialDistance !== null) {
-            const newZoom = (currentDistance / initialDistance) * initialZoom;
-            const clampedZoom = Math.max(0.5, Math.min(3, newZoom));
-            
-            const focalPoint = {
-                x: (touch1.clientX + touch2.clientX) / 2,
-                y: (touch1.clientY + touch2.clientY) / 2
-            };
-            
-            updateTransformMobile(initialPosX, initialPosY, clampedZoom, focalPoint);
+// ===== МОБИЛЬНОЕ УПРАВЛЕНИЕ (TOUCH) =====
+function initMobileControls() {
+    const MIN_ZOOM = 0.4;
+    const MAX_ZOOM = 3;
+    let startTouchX = 0, startTouchY = 0;
+    let initialDistance = null;
+    let initialZoom = null;
+    console.log("Mobile");
+
+    // Обновление трансформации
+    function updateTransformMobile(X, Y, zoom) {
+        zoom = Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, zoom));
+        tableContainer.style.transform = `translate(${X}px, ${Y}px) scale(${zoom})`;
+        zoomLevel.textContent = `${Math.round(zoom * 100)}%`;
+        posX = X;
+        posY = Y;
+        currentZoom = zoom;
+    }
+
+    // Перемещение (один палец)
+    tableContainer.addEventListener('touchstart', (e) => {
+        if (e.touches.length === 1) {
+            isDragging = true;
+            startTouchX = e.touches[0].clientX - posX;
+            startTouchY = e.touches[0].clientY - posY;
+        } else if (e.touches.length === 2) {
+            e.preventDefault();
+            initialDistance = getDistance(e.touches[0], e.touches[1]);
+            initialZoom = currentZoom;
         }
+    });
+
+    tableContainer.addEventListener('touchmove', (e) => {
+        if (isDragging && e.touches.length === 1) {
+            e.preventDefault();
+            const newX = e.touches[0].clientX - startTouchX;
+            const newY = e.touches[0].clientY - startTouchY;
+            updateTransformMobile(newX, newY, currentZoom);
+        } else if (e.touches.length === 2) {
+            e.preventDefault();
+            const currentDistance = getDistance(e.touches[0], e.touches[1]);
+            if (initialDistance !== null) {
+                const newZoom = (currentDistance / initialDistance) * initialZoom;
+                updateTransformMobile(posX, posY, newZoom);
+            }
+        }
+    });
+
+    tableContainer.addEventListener('touchend', () => {
+        isDragging = false;
+        initialDistance = null;
+    });
+
+    // Вспомогательная функция
+    function getDistance(touch1, touch2) {
+        return Math.hypot(
+            touch2.clientX - touch1.clientX,
+            touch2.clientY - touch1.clientY
+        );
     }
-});
 
-window.addEventListener('touchend', () => {
-    isDragging = false;
-    initialDistance = null;
-});
-
-// ===== ПРЕДОТВРАЩАЕМ СТАНДАРТНОЕ ПОВЕДЕНИЕ БРАУЗЕРА =====
-document.addEventListener('gesturestart', (e) => e.preventDefault());
-document.addEventListener('gesturechange', (e) => e.preventDefault());
+    // Запрещаем стандартные жесты браузера
+    document.addEventListener('gesturestart', (e) => e.preventDefault());
+    document.addEventListener('gesturechange', (e) => e.preventDefault());
+}
