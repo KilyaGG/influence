@@ -238,21 +238,6 @@ body {
     }
 }
 
-/* Горизонтальная ориентация */
-@media (orientation: landscape) and (max-height: 500px) {
-    .container {
-        transform: scale(0.8);
-    }
-
-    .logo-container {
-        margin-bottom: 20px;
-    }
-
-    .button-container {
-        margin-top: 15px;
-    }
-}
-
 /* Улучшения для тач-устройств */
 .play-button {
     -webkit-tap-highlight-color: transparent;
@@ -266,4 +251,29 @@ body {
 /* Запрет увеличения при двойном тапе на iOS */
 * {
     touch-action: manipulation;
+}
+@media (max-width: 768px) and (orientation: portrait) {
+    body {
+        background-size: 150% auto;
+    }
+}
+
+/* Для мобильных устройств в альбомной ориентации */
+@media (max-width: 768px) and (orientation: landscape) {
+    body {
+        background-size: auto 150%;
+    }
+}
+
+/* Для очень маленьких экранов */
+@media (max-width: 480px) {
+    body {
+        background-size: 200% auto;
+    }
+    
+    @media (orientation: landscape) {
+        body {
+            background-size: auto 200%;
+        }
+    }
 }
