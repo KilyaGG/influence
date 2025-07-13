@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Influence - Мод Меню!</title>
+    <link rel="stylesheet" href="settings.css">
+</head>
+<body>
+    <div class="container">
+        <div class="logo-container">
+            <img src="assets/logo.png" alt="Логотип Influence" class="logo">
+        </div>
+        
+        <div class="settings-panel">
+             <!-- Кнопка-галочка -->
+            <div class="setting-item">
+                <label class="setting-label">18 ярусные клетки</label>
+                <div class="toggle-switch">
+                    <input type="checkbox" id="bigCells" class="toggle-input">
+                    <label for="bigCells" class="toggle-label"></label>
+                </div>
+            </div>
+            <!-- Кнопка-галочка -->
+            <div class="setting-item">
+                <label class="setting-label">Башни апгрейда</label>
+                <div class="toggle-switch">
+                    <input type="checkbox" id="upgradeTowers" class="toggle-input">
+                    <label for="upgradeTowers" class="toggle-label"></label>
+                </div>
+            </div>
+            <!-- Кнопка возврата -->
+            <div class="setting-item">
+                <a href="settings.html" onclick="saveSettings()" class="back-button">Вернуться в меню</a>
+            </div>
+        </div>
+    </div>
+    <script src="modes-settings.js"></script>
+</body>
+</html>

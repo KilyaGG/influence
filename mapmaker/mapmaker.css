@@ -1,0 +1,206 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle, #000000, #000000);
+    overflow: hidden;
+}
+
+html, body {
+  touch-action: none;
+}
+
+* {
+    -webkit-tap-highlight-color: transparent;
+}
+
+
+.controls {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.controls button {
+    background: #444;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    margin: 0 5px;
+}
+
+.controls button:hover {
+    background: #555;
+}
+.table-container {
+    user-select: none; /* Запрещаем выделение текста */
+}
+td {
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    background-color: #333333;
+}
+
+.red-dot {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    border-radius: 50%;
+    z-index: 9999; /* Очень высокий z-index чтобы быть поверх всех */
+    pointer-events: none; /* Чтобы клики проходили сквозь точку */
+}
+
+.small-cell {
+    border-radius: 50% !important;
+}
+
+.medium-cell {
+    border-radius: 30% !important;
+}
+.big-cell {
+  transform: scale(0.9);
+  clip-path: polygon(
+    50% 0%,
+    100% 38%,
+    82% 100%,
+    18% 100%,
+    0% 38%
+  );
+}
+
+.upgradeTower {
+    border-radius: 50% !important;
+    transform: scale(0.7);
+    outline: 2px solid #2bdfff;
+}
+.upgrade-tower-target {
+    outline: 2px solid #2bdfff;
+}
+
+td:hover {
+    background-color: #444;
+    cursor: pointer;
+}
+
+.emptyCell {
+    border: none !important;
+    background-color: black !important;
+}
+
+table {
+    width: 400px;
+    height: 400px;
+    border-collapse: collapse;
+    table-layout: fixed;
+    transform-origin: center center;
+    transition: transform 0.2s ease;
+    background-color: #000000;
+}
+
+#popup-container {
+    position: fixed;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    transition: top 0.3s ease-in-out;
+}
+
+#input-wrapper {
+    background-color: rgba(0, 0, 0, 0.7);
+    border: 2px solid #00ff00;
+    border-radius: 50px;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+}
+
+#text-input {
+    background-color: black;
+    color: white;
+    border: none;
+    outline: none;
+    padding: 8px 15px;
+    font-size: 16px;
+    caret-color: transparent; /* Убираем мигающий курсор */
+    width: 300px;
+}
+
+#text-input::placeholder {
+    color: #aaa;
+}
+
+.visible {
+    top: 20px !important;
+}
+
+.zoom-level {
+    color:beige;
+}
+
+.selected-cell {
+    outline: 2px solid #2bdfff;
+}
+
+.grid-table {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#save-button {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: rgba(100, 100, 100, 0.7);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    z-index: 1000;
+  }
+  
+  #save-button:hover {
+    background-color: rgba(120, 120, 120, 0.9);
+    transform: scale(1.05);
+  }
+  
+  #save-button:active {
+    transform: scale(0.95);
+  }
+  
+  @media (max-width: 768px) {
+    #save-button {
+      width: 40px;
+      height: 40px;
+      top: 10px;
+      left: 10px;
+    }
+    
+    #save-button svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
