@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=no,  maximum-scale=1.0">
+    <title>influence - Игра</title>
+    <link rel="stylesheet" href="mapmaker.css">
+</head>
+<body>
+    <div class="controls">
+        <span id="zoom-level" style="color:aliceblue">100%</span>
+    </div>
+    <div class="table-container">
+        <table>
+            <tbody id="grid-table"></tbody>
+        </table>
+    </div>
+    <div id="popup-container">
+        <div id="input-wrapper">
+            <input type="text" id="text-input" placeholder="Введите текст и нажмите Enter...">
+        </div>
+    </div>
+    <button id="save-button" aria-label="Save">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+            <path fill="white" d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/>
+        </svg>
+    </button>
+    <script src="../game/classes.js"></script>
+    <script src="mapmaker.js"></script>
+    <script src="mapmaker-interface.js"></script>
+</body>
+</html>
