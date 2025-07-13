@@ -58,5 +58,5 @@ function saveSettings() {
     };
     Object.assign(settings, newSettings);
     localStorage.setItem('gameSettings', JSON.stringify(settings));
-    window.open('../menu.html', '_self');
+    window.open('../index.html', '_self');
 }
