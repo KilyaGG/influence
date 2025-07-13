@@ -268,30 +268,3 @@ table {
         height: 35px;
     }
 }
-
-/* Горизонтальная ориентация */
-@media (orientation: landscape) {
-    .table-container {
-        max-width: 70vh;
-        max-height: 70vh;
-    }
-    
-    .controls {
-        top: 5px;
-        padding: 5px;
-    }
-    
-    .color-circle-container {
-        bottom: 10px;
-        left: 10px;
-    }
-    
-    .scale-container {
-        bottom: 10px;
-    }
-    
-    #save-button {
-        top: 5px;
-        left: 5px;
-    }
-}

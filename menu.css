@@ -170,10 +170,6 @@ body {
 }
 /* Основные адаптации для мобильных устройств */
 @media (max-width: 768px) {
-    body {
-        background-size: cover;
-        background-position: center;
-    }
 
     .logo {
         max-width: 300px;
