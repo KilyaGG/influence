@@ -245,3 +245,53 @@ table {
       height: 20px;
     }
   }
+/* Адаптация для очень маленьких экранов */
+@media (max-width: 400px) {
+    .color-circle-container {
+        width: 50px;
+        height: 50px;
+        bottom: 15px;
+        left: 5px;
+    }
+    
+    .circle-number {
+        font-size: 20px;
+    }
+    
+    .scale-container {
+        height: 35px;
+        padding: 0 10px;
+    }
+    
+    #save-button {
+        width: 35px;
+        height: 35px;
+    }
+}
+
+/* Горизонтальная ориентация */
+@media (orientation: landscape) {
+    .table-container {
+        max-width: 70vh;
+        max-height: 70vh;
+    }
+    
+    .controls {
+        top: 5px;
+        padding: 5px;
+    }
+    
+    .color-circle-container {
+        bottom: 10px;
+        left: 10px;
+    }
+    
+    .scale-container {
+        bottom: 10px;
+    }
+    
+    #save-button {
+        top: 5px;
+        left: 5px;
+    }
+}

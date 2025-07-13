@@ -168,3 +168,106 @@ body {
 .icon {
     font-size: 40px;
 }
+/* Основные адаптации для мобильных устройств */
+@media (max-width: 768px) {
+    body {
+        background-size: cover;
+        background-position: center;
+    }
+
+    .logo {
+        max-width: 300px;
+    }
+
+    .button-container {
+        margin-top: 30px;
+        margin-right: 0;
+    }
+
+    .play-button {
+        width: 220px;
+        height: 50px;
+    }
+
+    .play-text, 
+    .settings-text, 
+    .continue-text, 
+    .map-text {
+        font-size: 32px;
+        height: 48px;
+        padding: 10px 20px;
+    }
+
+    .button-icon {
+        width: 48px;
+        height: 48px;
+        padding: 10px;
+        margin-left: 10px;
+    }
+
+    .icon {
+        font-size: 32px;
+    }
+}
+
+/* Адаптация для очень маленьких экранов */
+@media (max-width: 480px) {
+    .logo {
+        max-width: 250px;
+        margin-bottom: 30px;
+    }
+
+    .play-button {
+        width: 180px;
+        height: 45px;
+    }
+
+    .play-text, 
+    .settings-text, 
+    .continue-text, 
+    .map-text {
+        font-size: 26px;
+        height: 42px;
+        padding: 8px 15px;
+    }
+
+    .button-icon {
+        width: 42px;
+        height: 42px;
+        padding: 8px;
+    }
+
+    .icon {
+        font-size: 28px;
+    }
+}
+
+/* Горизонтальная ориентация */
+@media (orientation: landscape) and (max-height: 500px) {
+    .container {
+        transform: scale(0.8);
+    }
+
+    .logo-container {
+        margin-bottom: 20px;
+    }
+
+    .button-container {
+        margin-top: 15px;
+    }
+}
+
+/* Улучшения для тач-устройств */
+.play-button {
+    -webkit-tap-highlight-color: transparent;
+    tap-highlight-color: transparent;
+}
+
+.play-button:active {
+    transform: scale(0.98);
+}
+
+/* Запрет увеличения при двойном тапе на iOS */
+* {
+    touch-action: manipulation;
+}
