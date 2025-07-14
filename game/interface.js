@@ -19,7 +19,6 @@ const maxZoom = 3;
 
 
 document.addEventListener('DOMContentLoaded', function() {
-    updateTransform(0,0,2);
     generateUI(tableBody, fieldSize);
     updateScale(players);
     updateCircle(turnID);

@@ -206,7 +206,7 @@ body {
     }
 }
 
-/* Адаптация для очень маленьких экранов */
+/* Адаптация для очень маленьких экранов
 @media (max-width: 480px) {
     .logo {
         max-width: 250px;
@@ -238,7 +238,7 @@ body {
     }
 }
 
-/* Улучшения для тач-устройств */
+ Улучшения для тач-устройств 
 .play-button {
     -webkit-tap-highlight-color: transparent;
     tap-highlight-color: transparent;
@@ -247,25 +247,11 @@ body {
 .play-button:active {
     transform: scale(0.98);
 }
-
-/* Запрет увеличения при двойном тапе на iOS */
-* {
-    touch-action: manipulation;
-}
-@media (max-width: 768px) and (orientation: portrait) {
-    body {
-        background-size: 150% auto;
-    }
-}
-
-/* Для мобильных устройств в альбомной ориентации */
 @media (max-width: 768px) and (orientation: landscape) {
     body {
         background-size: auto 150%;
     }
 }
-
-/* Для очень маленьких экранов */
 @media (max-width: 480px) {
     body {
         background-size: 200% auto;
@@ -276,4 +262,4 @@ body {
             background-size: auto 200%;
         }
     }
-}
+}*/
