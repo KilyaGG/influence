@@ -301,35 +301,3 @@ table {
     pointer-events: auto;
 }
 
-/* Для мобильных устройств - уменьшаем размеры */
-@media (max-width: 600px) {
-    .color-circle-container {
-        width: 50px;
-        height: 50px;
-    }
-    
-    .scale-container {
-        height: 25px;
-    }
-    
-    .circle-number {
-        font-size: 24px;
-    }
-}
-
-/* Обновляем HTML для использования нового контейнера */
-/* Для мобильных устройств - уменьшаем размеры */
-@media (max-width: 600px) {
-    .color-circle-container {
-        width: 50px;
-        height: 50px;
-    }
-    
-    .scale-container {
-        height: 25px;
-    }
-    
-    .circle-number {
-        font-size: 24px;
-    }
-}
