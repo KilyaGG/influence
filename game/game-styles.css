@@ -254,7 +254,7 @@ table {
     transform: scale(0.95);
 }
 
-/* Медиа-запросы для мобильных устройств */
+/* Медиа-запросы для мобильных устройств 
 @media (max-width: 768px) {
     .color-circle-container {
         width: 60px;
@@ -293,4 +293,4 @@ table {
         font-size: 14px;
         padding: 4px 8px;
     }
-}
+}*/
