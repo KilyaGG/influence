@@ -253,44 +253,83 @@ table {
 #save-button:active {
     transform: scale(0.95);
 }
+/* Добавьте это в game-styles.css */
 
-/* Медиа-запросы для мобильных устройств 
-@media (max-width: 768px) {
+/* Общий контейнер для нижних элементов */
+.bottom-ui {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 10px;
+    box-sizing: border-box;
+    z-index: 100;
+    pointer-events: none;
+}
+
+/* Цветной круг */
+.color-circle-container {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    width: 60px;
+    height: 60px;
+    margin-right: 10px;
+    pointer-events: auto;
+}
+
+/* Контейнер шкалы */
+.scale-container {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    width: calc(100% - 80px);
+    height: 30px;
+    margin: 0 10px;
+    pointer-events: auto;
+}
+
+/* Уровень зума */
+.zoom-level {
+    position: relative;
+    bottom: auto;
+    right: auto;
+    margin-left: auto;
+    pointer-events: auto;
+}
+
+/* Для мобильных устройств - уменьшаем размеры */
+@media (max-width: 600px) {
     .color-circle-container {
-        width: 60px;
-        height: 60px;
-        bottom: 15px;
-        left: 15px;
+        width: 50px;
+        height: 50px;
     }
     
-    .color-circle {
-        width: 70%;
-        height: 70%;
+    .scale-container {
+        height: 25px;
     }
     
     .circle-number {
         font-size: 24px;
     }
+}
+
+/* Обновляем HTML для использования нового контейнера */
+/* Для мобильных устройств - уменьшаем размеры */
+@media (max-width: 600px) {
+    .color-circle-container {
+        width: 50px;
+        height: 50px;
+    }
     
     .scale-container {
-        width: 250px;
-        height: 35px;
-        bottom: 30px;
-        left: calc(50% - 125px);
+        height: 25px;
     }
     
-    #save-button {
-        width: 45px;
-        height: 45px;
+    .circle-number {
+        font-size: 24px;
     }
-    
-    .controls {
-        padding: 8px;
-        font-size: 14px;
-    }
-    
-    .zoom-level {
-        font-size: 14px;
-        padding: 4px 8px;
-    }
-}*/
+}
