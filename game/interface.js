@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
     moveToCellByPlayerID(turnID);
     checkForPlayerBugs();
 
-    tableContainer.addEventListener('wheel', (e) => {
+    document.addEventListener('wheel', function(e) {
         e.preventDefault();
         if (e.ctrlKey) { // Zoom только при зажатом Ctrl
             if (e.deltaY < 0 && currentZoom < maxZoom) {
@@ -37,13 +37,13 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             updateTransform(posX, posY, currentZoom);
         }
-    });
+    }, {passive: false });
 
     saveButton.addEventListener('click', (e) => {
         saveField();
     });
 
-    tableContainer.addEventListener('mousedown', (e) => {
+    document.addEventListener('mousedown', (e) => {
         if (e.button === 2) { // Правая кнопка мыши
             isDragging = true;
             startX = e.clientX - posX;

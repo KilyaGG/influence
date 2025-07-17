@@ -1,4 +1,3 @@
-// Проверка на мобильное устройство
 function isMobile() {
     return (('ontouchstart' in window) || 
             (navigator.maxTouchPoints > 0) || 
@@ -30,50 +29,49 @@ function initMobileControls() {
         posY = Y;
         currentZoom = zoom;
     }
-
-    // Перемещение (один палец)
-    tableContainer.addEventListener('touchstart', (e) => {
-        if (e.touches.length === 1) {
-            isDragging = true;
-            startTouchX = e.touches[0].clientX - posX;
-            startTouchY = e.touches[0].clientY - posY;
-        } else if (e.touches.length === 2) {
-            e.preventDefault();
-            initialDistance = getDistance(e.touches[0], e.touches[1]);
-            initialZoom = currentZoom;
-        }
-    });
-
-    tableContainer.addEventListener('touchmove', (e) => {
-        if (isDragging && e.touches.length === 1) {
-            e.preventDefault();
-            const newX = e.touches[0].clientX - startTouchX;
-            const newY = e.touches[0].clientY - startTouchY;
-            updateTransformMobile(newX, newY, currentZoom);
-        } else if (e.touches.length === 2) {
-            e.preventDefault();
-            const currentDistance = getDistance(e.touches[0], e.touches[1]);
-            if (initialDistance !== null) {
-                const newZoom = (currentDistance / initialDistance) * initialZoom;
-                updateTransformMobile(posX, posY, newZoom);
-            }
-        }
-    });
-
-    tableContainer.addEventListener('touchend', () => {
-        isDragging = false;
-        initialDistance = null;
-    });
-
-    // Вспомогательная функция
-    function getDistance(touch1, touch2) {
-        return Math.hypot(
-            touch2.clientX - touch1.clientX,
-            touch2.clientY - touch1.clientY
-        );
-    }
-
     // Запрещаем стандартные жесты браузера
     document.addEventListener('gesturestart', (e) => e.preventDefault());
     document.addEventListener('gesturechange', (e) => e.preventDefault());
 }
+
+function setupPinchZoom(tableContainer) {
+    let initialDistance = 0;
+    let currentScale = 1;
+
+    tableContainer.addEventListener('touchstart', function(e) {
+        if (e.touches.length === 2) {
+            // Вычисляем начальное расстояние между двумя пальцами
+            initialDistance = Math.hypot(
+                e.touches[0].clientX - e.touches[1].clientX,
+                e.touches[0].clientY - e.touches[1].clientY
+            );
+        }
+    });
+
+    tableContainer.addEventListener('touchmove', function(e) {
+        if (e.touches.length === 2) {
+            e.preventDefault(); // Предотвращаем стандартное поведение (например, прокрутку страницы)
+            
+            // Вычисляем текущее расстояние между пальцами
+            const currentDistance = Math.hypot(
+                e.touches[0].clientX - e.touches[1].clientX,
+                e.touches[0].clientY - e.touches[1].clientY
+            );
+
+            if (initialDistance > 0) {
+                // Вычисляем коэффициент масштабирования
+                const scale = currentDistance / initialDistance;
+                
+                // Применяем масштаб к элементу
+                currentScale = Math.max(0.5, Math.min(scale * currentScale, 3)); // Ограничиваем масштаб от 0.5 до 3
+                tableContainer.style.transform = `scale(${currentScale})`;
+                tableContainer.style.transformOrigin = '0 0'; // Точка трансформации в верхнем левом углу
+            }
+        }
+    });
+
+    tableContainer.addEventListener('touchend', function() {
+        initialDistance = 0; // Сбрасываем начальное расстояние при окончании жеста
+    });
+}
+setupPinchZoom(tableContainer);
